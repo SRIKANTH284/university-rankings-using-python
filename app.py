@@ -17,11 +17,13 @@ def get_university_data():
 df = get_university_data()
 
 # Function to filter data based on user selection
+@st.cache
 def filter_data(df, country, year):
     df_selection = df.query("country == @country & year == @year")
     return df_selection
 
 # Function to create university distribution bar chart
+@st.cache
 def create_university_distribution_chart(df_selection):
     university_distribution = df_selection["country"].value_counts().reset_index()
     university_distribution.columns = ["Country", "Number of Universities"]
@@ -43,6 +45,7 @@ def create_university_distribution_chart(df_selection):
     return fig_university_distribution
 
 # Function to create university ranking trend line chart
+@st.cache
 def create_ranking_trend_chart(df_selection):
     fig_ranking_trend = px.line(
         df_selection,
@@ -61,6 +64,7 @@ def create_ranking_trend_chart(df_selection):
     return fig_ranking_trend
 
 # Function to create scatter plot for world rank vs teaching score
+@st.cache
 def create_scatter_plot(df_selection):
     fig_scatter = px.scatter(
         df_selection,
@@ -79,6 +83,7 @@ def create_scatter_plot(df_selection):
     return fig_scatter
 
 # Function to create histogram for research scores
+@st.cache
 def create_histogram(df_selection):
     fig_histogram = px.histogram(
         df_selection,
