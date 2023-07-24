@@ -29,8 +29,8 @@ country = st.sidebar.multiselect(
 year = st.sidebar.slider(
     "Select Year:",
     min_value=df["year"].min(),
-    max_value=df["year"].max(),
-    value=df["year"].max().item(),  # Extract the single integer value from numpy scalar
+    max_value=int(df["year"].max()),  # Convert max_value to integer
+    value=int(df["year"].max()),      # Convert value to integer
 )
 
 df_selection = df.query("country == @country & year == @year")
