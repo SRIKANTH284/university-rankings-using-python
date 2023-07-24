@@ -15,6 +15,9 @@ def get_university_data():
 
 df = get_university_data()
 
+# Convert 'year' column to numeric data type (integer)
+df["year"] = df["year"].astype(int)
+
 # ---- SIDEBAR ----
 st.sidebar.header("Please Filter Here:")
 country = st.sidebar.multiselect(
