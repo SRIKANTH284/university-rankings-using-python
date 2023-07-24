@@ -11,12 +11,10 @@ def get_university_data():
     # Replace the following path with the path to your university ranking data (Excel file)
     data_path = "universityrankings.xlsx"
     df = pd.read_excel(data_path)
+    df["year"] = df["year"].astype(int)  # Convert 'year' column to integer
     return df
 
 df = get_university_data()
-
-# Convert 'year' column to numeric data type (integer)
-df["year"] = df["year"].astype(int)
 
 # ---- SIDEBAR ----
 st.sidebar.header("Please Filter Here:")
@@ -28,7 +26,7 @@ country = st.sidebar.multiselect(
 
 year_min = int(df["year"].min())  # Convert min_value to integer
 year_max = int(df["year"].max())  # Convert max_value to integer
-year_value = int(df["year"].max())  # Convert value to integer
+year_value = year_max  # Set initial value to max year
 
 year = st.sidebar.slider(
     "Select Year:",
