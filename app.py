@@ -30,7 +30,7 @@ year = st.sidebar.slider(
     "Select Year:",
     min_value=df["year"].min(),
     max_value=df["year"].max(),
-    value=df["year"].max(),
+    value=df["year"].max().item(),  # Extract the single integer value from numpy scalar
 )
 
 df_selection = df.query("country == @country & year == @year")
