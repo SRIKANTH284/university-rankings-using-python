@@ -17,13 +17,11 @@ def get_university_data():
 df = get_university_data()
 
 # Function to filter data based on user selection
-@st.cache
 def filter_data(df, country, year):
     df_selection = df.query("country == @country & year == @year")
     return df_selection
 
 # Function to create university distribution bar chart
-@st.cache
 def create_university_distribution_chart(df_selection):
     university_distribution = df_selection["country"].value_counts().reset_index()
     university_distribution.columns = ["Country", "Number of Universities"]
@@ -45,7 +43,6 @@ def create_university_distribution_chart(df_selection):
     return fig_university_distribution
 
 # Function to create university ranking trend line chart
-@st.cache
 def create_ranking_trend_chart(df_selection):
     fig_ranking_trend = px.line(
         df_selection,
@@ -62,43 +59,6 @@ def create_ranking_trend_chart(df_selection):
     )
     
     return fig_ranking_trend
-
-# Function to create scatter plot for world rank vs teaching score
-@st.cache
-def create_scatter_plot(df_selection):
-    fig_scatter = px.scatter(
-        df_selection,
-        x="world_rank",
-        y="teaching_score",
-        color="country",
-        title="<b>World Rank vs Teaching Score</b>",
-        template="plotly_white",
-    )
-    fig_scatter.update_layout(
-        plot_bgcolor="rgba(0,0,0,0)",
-        xaxis=dict(showgrid=False),
-        yaxis=dict(showgrid=False),
-    )
-    
-    return fig_scatter
-
-# Function to create histogram for research scores
-@st.cache
-def create_histogram(df_selection):
-    fig_histogram = px.histogram(
-        df_selection,
-        x="research_score",
-        nbins=30,
-        title="<b>Research Score Distribution</b>",
-        template="plotly_white",
-    )
-    fig_histogram.update_layout(
-        plot_bgcolor="rgba(0,0,0,0)",
-        xaxis=dict(showgrid=False),
-        yaxis=dict(showgrid=False),
-    )
-    
-    return fig_histogram
 
 # ---- SIDEBAR ----
 st.sidebar.header("Please Filter Here:")
@@ -140,16 +100,6 @@ st.plotly_chart(fig_university_distribution, use_container_width=True)
 # UNIVERSITY RANKING TREND [LINE CHART]
 fig_ranking_trend = create_ranking_trend_chart(df_selection)
 st.plotly_chart(fig_ranking_trend, use_container_width=True)
-
-st.markdown("""---""")
-
-# WORLD RANK VS TEACHING SCORE [SCATTER PLOT]
-fig_scatter = create_scatter_plot(df_selection)
-st.plotly_chart(fig_scatter, use_container_width=True)
-
-# RESEARCH SCORE DISTRIBUTION [HISTOGRAM]
-fig_histogram = create_histogram(df_selection)
-st.plotly_chart(fig_histogram, use_container_width=True)
 
 # ---- HIDE STREAMLIT STYLE ----
 hide_st_style = """
