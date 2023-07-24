@@ -1,4 +1,3 @@
-
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -69,9 +68,9 @@ country = st.sidebar.multiselect(
     default=df["country"].unique()
 )
 
-year_min = df["year"].min()
-year_max = df["year"].max()
-year_value = int(df["year"].max())
+year_min = int(df["year"].min())  # Convert year_min to integer
+year_max = int(df["year"].max())  # Convert year_max to integer
+year_value = int(df["year"].max())  # Convert year_value to integer
 
 year = st.sidebar.slider(
     "Select Year:",
