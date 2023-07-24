@@ -70,7 +70,7 @@ country = st.sidebar.multiselect(
 
 year_min = df["year"].min()
 year_max = df["year"].max()
-year_value = year_max
+year_value = int(df["year"].max())
 
 year = st.sidebar.slider(
     "Select Year:",
